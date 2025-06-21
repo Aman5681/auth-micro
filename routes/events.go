@@ -29,12 +29,7 @@ func updateEvent(context *gin.Context) {
 		context.JSON(http.StatusBadRequest, gin.H{"error": "Event ID is required"})
 	}
 
-	if _, err = uuid.Parse(eventId); err != nil {
-		context.JSON(http.StatusBadRequest, gin.H{"error": "invalid eventId format (expected UUID)"})
-		return
-	}
-
-	updatedEvent.EventId, _ = uuid.Parse(eventId)
+	updatedEvent.EventId = eventId
 
 	event, err := models.UpdateEvent(&updatedEvent, context)
 
