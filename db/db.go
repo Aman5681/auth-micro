@@ -29,13 +29,28 @@ func createTables() {
 		description TEXT NOT NULL,
 		location TEXT NOT NULL,
 		dateTime DATETIME NOT NULL,
-		userId TEXT NOT NULL  -- string userId
+		userId TEXT NOT NULL,  -- string userId
+		FOREIGN KEY(userId) REFERENCES users(userId)
 	);
 	`
 
-	_, err := DB.Exec(createEventsTable)
+	createUsersTable := `
+	CREATE TABLE IF NOT EXISTS users (
+		userId TEXT PRIMARY KEY, -- UUID AS TEXT
+		emailId TEXT NOT NULL,
+		password TEXT NOT NULL
+	)
+	`
+	_, err := DB.Exec(createUsersTable)
+
+	if err != nil {
+		panic("Failed to create users table")
+	}
+
+	_, err = DB.Exec(createEventsTable)
 
 	if err != nil {
 		panic("Failed to create events table")
 	}
+
 }
