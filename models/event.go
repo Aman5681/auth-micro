@@ -5,12 +5,12 @@ import (
 	"time"
 
 	"github.com/Aman5681/auth-micro/db"
+	"github.com/Aman5681/auth-micro/utils"
 	"github.com/gin-gonic/gin"
-	"github.com/google/uuid"
 )
 
 type Event struct {
-	EventId     uuid.UUID `json:"eventId"`
+	EventId     string    `json:"eventId"`
 	Name        string    `json:"name" binding:"required"`
 	Description string    `json:"description" binding:"required"`
 	Location    string    `json:"location" binding:"required"`
@@ -19,7 +19,7 @@ type Event struct {
 }
 
 func (e *Event) SaveEvent(context *gin.Context) error {
-	e.EventId = uuid.New()
+	e.EventId = utils.GenerateUUID()
 	e.DateTime = time.Now()
 	query := `
 	INSERT INTO events(eventId, name, description, location, dateTime, userId)

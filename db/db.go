@@ -37,7 +37,7 @@ func createTables() {
 	createUsersTable := `
 	CREATE TABLE IF NOT EXISTS users (
 		userId TEXT PRIMARY KEY, -- UUID AS TEXT
-		emailId TEXT NOT NULL,
+		emailId TEXT NOT NULL UNIQUE,
 		password TEXT NOT NULL
 	)
 	`

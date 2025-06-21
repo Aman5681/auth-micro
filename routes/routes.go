@@ -13,4 +13,5 @@ func RegisterRoutes(server *gin.Engine) {
 
 	users := server.Group("/users")
 	users.POST("/create-user", signUp)
+	users.POST("/login", login)
 }
